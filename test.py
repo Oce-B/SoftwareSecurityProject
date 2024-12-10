@@ -9,6 +9,9 @@ ATTACKS = {
     "csrf": "run_csrf_test"
 }
 
+
+# test
+
 # --- Attack Handlers ---
 
 # XSS Attack Tester
