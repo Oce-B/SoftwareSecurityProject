@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Select Attack Type</h2>
+
+  <form method="POST" action="/">
+    <label for="attack_type">Attack Type:</label>
+    <select name="attack_type" id="attack_type">
+      <option value="xss">XSS</option>
+      <option value="csrf">CSRF</option>
+    </select>
+    <br><br>
+
+    <label for="target_url">Target URL:</label>
+    <input type="text" name="target_url" id="target_url" placeholder="https://example.com">
+    <br><br>
+
+    <button type="submit">Run Attack</button>
+  </form>
+
+  {% if error %}
+    <p class="error">{{ error }}</p>
+  {% endif %}
+{% endblock %}

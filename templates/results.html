@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Results</h2>
+  <p>Attack Type: <strong>{{ attack_type }}</strong></p>
+  <p>Target URL: <strong>{{ target_url }}</strong></p>
+
+  {% if outcome and outcome|length > 0 %}
+    <ul>
+      {% for item in outcome %}
+        <li>
+          {% if item.error %}
+            <strong>Error:</strong> {{ item.error }}
+          {% else %}
+            <strong>Vulnerable:</strong> {{ item.vulnerable }} <br>
+            {% if item.parameter %} <strong>Parameter:</strong> {{ item.parameter }} <br> {% endif %}
+            {% if item.payload %} <strong>Payload:</strong> {{ item.payload }} <br> {% endif %}
+            {% if item.snippet %} <strong>Snippet:</strong> {{ item.snippet|safe }} <br> {% endif %}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No issues found or no data returned.</p>
+  {% endif %}
+{% endblock %}
