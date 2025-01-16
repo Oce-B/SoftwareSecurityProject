@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulnerability Report</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Vulnerability Report</h1>
+
+        <h2>SQL Injection Results</h2>
+        <ul>
+            {% for result in sql_results %}
+            <li>Payload: {{ result.payload }} - Status: {{ result.status }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Cookie Stealing Results</h2>
+        <p>Status: {{ cookie_results.status }}</p>
+        <p>Message: {{ cookie_results.message }}</p>
+    </div>
+</body>
+</html>

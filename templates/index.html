@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulnerability Detection Tool</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Vulnerability Detection Tool</h1>
+        <form action="/detect" method="POST">
+            <label for="ip_address">Target IP Address:</label>
+            <input type="text" id="ip_address" name="ip_address" placeholder="Enter target IP address" required>
+            <button type="submit">Start Detection</button>
+        </form>
+    </div>
+</body>
+</html>
