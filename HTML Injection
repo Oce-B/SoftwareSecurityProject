@@ -1,0 +1,30 @@
+def html_injection_simulation(user_input):
+    """
+    Simulates an HTML Injection attack by injecting a malicious script or HTML into a vulnerable page.
+    
+    Args:
+        user_input (str): The input from the user (potentially malicious).
+
+    Returns:
+        str: The HTML content with the injected input.
+    """
+    # Simulate vulnerable HTML template rendering
+    html_template = """<html>
+    <head><title>Vulnerable Page</title></head>
+    <body>
+        <h1>Welcome to the page!</h1>
+        <p>Your input: {}</p>
+    </body>
+</html>"""
+
+    # Vulnerable rendering: directly embedding user input without sanitization
+    return html_template.format(user_input)
+
+# Example malicious input
+malicious_input = "<script>alert('You have been hacked!');</script>"
+resulting_page = html_injection_simulation(malicious_input)
+
+# Output the generated HTML (in real use, this would be rendered in a browser)
+print(resulting_page)
+
+# Your teammates can integrate this function with the GUI to demonstrate HTML injection in their Angular project.
