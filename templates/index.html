@@ -12,7 +12,20 @@
         <form action="/detect" method="POST">
             <label for="ip_address">Target IP Address:</label>
             <input type="text" id="ip_address" name="ip_address" placeholder="Enter target IP address" required>
-            <button type="submit">Start Detection</button>
+            <label for="user_input">User Input (optional):</label>
+            <input type="text" id="user_input" name="user_input" placeholder="Enter user input">
+            <button type="submit" name="attack_type" value="sql_injection">SQL Injection</button>
+            <button type="submit" name="attack_type" value="xss">Cross-Site Scripting (XSS)</button>
+            <button type="submit" name="attack_type" value="csrf">Cross-Site Request Forgery (CSRF)</button>
+            <button type="submit" name="attack_type" value="dos">Denial of Service (DoS)</button>
+            <button type="submit" name="attack_type" value="parameter_pollution">Parameter Pollution</button>
+            <button type="submit" name="attack_type" value="command_injection">Command Injection</button>
+            <button type="submit" name="attack_type" value="html_injection">HTML Injection</button>
+            <button type="submit" name="attack_type" value="brute_force">Brute Force</button>
+            <button type="submit" name="attack_type" value="dictionary">Dictionary Attack</button>
+            <button type="submit" name="attack_type" value="cookie_theft">Cookie Theft</button>
+            <button type="submit" name="attack_type" value="directory_traversal">Directory Traversal</button>
+            <button type="submit" name="attack_type" value="dynamic_url_testing">Dynamic URL Testing</button>
         </form>
     </div>
 </body>

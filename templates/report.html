@@ -9,17 +9,12 @@
 <body>
     <div class="container">
         <h1>Vulnerability Report</h1>
-
-        <h2>SQL Injection Results</h2>
+        <h2>Attack Results:</h2>
         <ul>
-            {% for result in sql_results %}
-            <li>Payload: {{ result.payload }} - Status: {{ result.status }}</li>
+            {% for result in results %}
+            <li>{{ result }}</li>
             {% endfor %}
         </ul>
-
-        <h2>Cookie Stealing Results</h2>
-        <p>Status: {{ cookie_results.status }}</p>
-        <p>Message: {{ cookie_results.message }}</p>
     </div>
 </body>
 </html>
